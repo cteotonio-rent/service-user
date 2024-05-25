@@ -1,6 +1,6 @@
 ﻿namespace rent.user.communication.Requests
 {
-    public class ResquestRegisterUserJson
+    public class RequestRegisterUserJson
     {
         public string Name { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
