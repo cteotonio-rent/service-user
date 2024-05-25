@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rent.user.infrastructure", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rent.user.communication", "src\shared\rent.user.communication\rent.user.communication.csproj", "{0DD29CCF-F138-4E6A-8F4C-4B5723228341}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rent.user.exceptions", "src\shared\rent.user.exceptions\rent.user.exceptions.csproj", "{0C39C719-8A90-4CB0-A9DD-A920B04391B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{0DD29CCF-F138-4E6A-8F4C-4B5723228341}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DD29CCF-F138-4E6A-8F4C-4B5723228341}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DD29CCF-F138-4E6A-8F4C-4B5723228341}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C39C719-8A90-4CB0-A9DD-A920B04391B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C39C719-8A90-4CB0-A9DD-A920B04391B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C39C719-8A90-4CB0-A9DD-A920B04391B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C39C719-8A90-4CB0-A9DD-A920B04391B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{73A48666-6F57-4082-A395-902B4BDE348C} = {26459C11-CE6A-479F-8FEA-8755A5E692F5}
 		{063CAF9E-91F4-4822-86F2-2DE5B131ADB5} = {26459C11-CE6A-479F-8FEA-8755A5E692F5}
 		{0DD29CCF-F138-4E6A-8F4C-4B5723228341} = {F332E10D-5204-40F4-8339-7823D1598607}
+		{0C39C719-8A90-4CB0-A9DD-A920B04391B9} = {F332E10D-5204-40F4-8339-7823D1598607}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {494FB49A-3D83-4FB8-A047-963A1E2126FE}
