@@ -11,10 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\rent.user.exceptions\rent.user.exceptions.csproj" />
     <ProjectReference Include="..\..\shared\rent.user.communication\rent.user.communication.csproj" />
     <ProjectReference Include="..\rent.user.application\rent.user.application.csproj" />
     <ProjectReference Include="..\rent.user.domain\rent.user.domain.csproj" />
+    <ProjectReference Include="..\rent.user.infrastructure\rent.user.infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
