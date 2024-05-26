@@ -24,17 +24,10 @@ namespace rent.user.infrastructure
 
         private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
         {
-            //if (configuration.GetValue<bool>("InMemoryTest"))
-            //{
-               
-            //    var mongoClient = new MongoClient(CreateMongoContainerConnectionString().Result);
-            //    services.AddDbContext<UserDbContext>(dbContextOptions => { dbContextOptions.UseMongoDB(mongoClient, databaseName: configuration.GetConnectionString("Database")!); });
-            //}
-            //else
-            //{
-                var mongoClient = new MongoClient(configuration.GetConnectionString("Connection"));
-                services.AddDbContext<UserDbContext>(dbContextOptions => { dbContextOptions.UseMongoDB(mongoClient, databaseName: configuration.GetConnectionString("Database")!); });
-            //}
+
+            var mongoClient = new MongoClient(configuration.GetConnectionString("Connection"));
+            services.AddDbContext<UserDbContext>(dbContextOptions => { dbContextOptions.UseMongoDB(mongoClient, databaseName: configuration.GetConnectionString("Database")!); });
+
         }
 
         private static void AddRepositories(IServiceCollection services)
@@ -54,7 +47,7 @@ namespace rent.user.infrastructure
 
             await mongoContainer.StartAsync();
 
-            
+
 
             return mongoContainer.GetConnectionString();
         }
