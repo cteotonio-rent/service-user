@@ -12,6 +12,7 @@ namespace WebApi.Test.User.Register
 {
     public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
     {
+        private readonly string _url = "user";
         private readonly HttpClient _httpClient;
         public RegisterUserTest(CustomWebApplicationFactory factory) => _httpClient = factory.CreateClient();
 
@@ -19,7 +20,7 @@ namespace WebApi.Test.User.Register
         public async Task Sucess()
         {
             var request = RequestRegisterUserJsonBuilder.Build();
-            var response = await _httpClient.PostAsJsonAsync("User", request);
+            var response = await _httpClient.PostAsJsonAsync(_url, request);
             response.StatusCode.Should().Be(HttpStatusCode.Created);
 
             await using var responseBody = await response.Content.ReadAsStreamAsync();
@@ -42,7 +43,7 @@ namespace WebApi.Test.User.Register
 
             _httpClient.DefaultRequestHeaders.Add("Accept-Language", culture);
 
-            var response = await _httpClient.PostAsJsonAsync("User", request);
+            var response = await _httpClient.PostAsJsonAsync(_url, request);
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
             await using var responseBody = await response.Content.ReadAsStreamAsync();
