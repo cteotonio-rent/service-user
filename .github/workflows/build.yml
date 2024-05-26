@@ -43,5 +43,5 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"cteotonio-rent_service-user" /o:"cteotonio-rent" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dot net test --collect:"XPlat Code Coverage" --settings:./test.runsettings
+          dotnet test --collect:"XPlat Code Coverage" --settings:./test.runsettings
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
