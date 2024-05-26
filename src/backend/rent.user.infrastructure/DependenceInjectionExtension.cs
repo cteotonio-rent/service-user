@@ -20,9 +20,6 @@ namespace rent.user.infrastructure
 
             if (configuration.GetValue<bool>("InMemoryTest"))
                 return;
-
-            
-
         }
 
         private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
