@@ -17,39 +17,46 @@ namespace WebApi.Test
 {
     public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     {
+        private MongoDbContainer mongoContainer;
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
-            builder.UseEnvironment("Testing");
-             //.ConfigureServices(async services =>
-             //{
-             //    var descriptor = services.SingleOrDefault(
-             //        d => d.ServiceType ==
-             //            typeof(DbContextOptions<UserDbContext>));
+            builder.UseEnvironment("Testing")
+             .ConfigureServices(services =>
+              {
+                  var descriptor = services.SingleOrDefault(
+                      d => d.ServiceType ==
+                          typeof(DbContextOptions<UserDbContext>));
 
-             //    if (descriptor != null)
-             //        services.Remove(descriptor);
+                  if (descriptor != null)
+                      services.Remove(descriptor);
 
-             //    var mongoContainer = new MongoDbBuilder()
-             //           .WithImage("mongo:6.0")
-             //           .Build();
+                  mongoContainer = new MongoDbBuilder()
+                    .WithImage("mongo:latest")
+                    .Build();
 
-             //    await mongoContainer.StartAsync();
+                  var cancellationTokenSource = new CancellationTokenSource();
+                  cancellationTokenSource.CancelAfter(TimeSpan.FromMinutes(5));
 
-             //    //var provider = services.AddEntityFrameworkInMemoryDatabase().BuildServiceProvider();
-             //    var provider = services.AddEntityFrameworkMongoDB().BuildServiceProvider();
+                  mongoContainer.StartAsync(cancellationTokenSource.Token).GetAwaiter().GetResult(); // Inicia o contêiner de forma síncrona
 
+                  var mongoClient = new MongoClient(mongoContainer.GetConnectionString());
 
-             //    var mongoClient = new MongoClient(mongoContainer.GetConnectionString());
-             //    //services.AddDbContext<UserDbContext>(dbContextOptions => { dbContextOptions.UseMongoDB(mongoClient, databaseName: configuration.GetConnectionString("Database")!); });
+                  services.AddDbContext<UserDbContext>(options =>
+                  {
+                      options.UseMongoDB(mongoClient, "db_test");
+                      //options.UseInternalServiceProvider(services.BuildServiceProvider());
+                  });
+              });
+        }
 
-             //    services.AddDbContext<UserDbContext>(options =>
-             //    {
-             //        options.UseMongoDB(mongoClient,"db_test");
-                 
-             //        //options.UseInMemoryDatabase("InMemoryDbForTesting");
-             //        options.UseInternalServiceProvider(provider);
-             //    });
-             //});
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                mongoContainer.DisposeAsync().GetAwaiter().GetResult();
+            }
+
+            base.Dispose(disposing);
         }
     }
 }
