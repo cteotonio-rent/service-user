@@ -6,6 +6,7 @@ using rent.user.communication.Requests;
 using rent.user.communication.Responses;
 using rent.user.domain.Repositories;
 using rent.user.domain.Repositories.User;
+using rent.user.domain.Security.Tokens;
 using rent.user.exceptions;
 using rent.user.exceptions.ExceptionsBase;
 
@@ -18,19 +19,22 @@ namespace rent.user.application.UseCases.User.Register
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly PasswordEncripter _passwordEncripter;
+        private readonly IAccessTokenGenerator _accessTokenGenerator;
 
         public RegisterUserUseCase(
             IUserWriteOnlyRepository userWriteOnlyRepository, 
             IUserReadOnlyRepository userReadOnlyRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            PasswordEncripter passwordEncripter)
+            PasswordEncripter passwordEncripter,
+            IAccessTokenGenerator accessTokenGenerator)
         {
             _userWriteOnlyRepository = userWriteOnlyRepository;
             _userReadOnlyRepository = userReadOnlyRepository;
             _mapper = mapper;
             _passwordEncripter = passwordEncripter;
             _unitOfWork = unitOfWork;
+            _accessTokenGenerator = accessTokenGenerator;
         }
 
         public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
@@ -40,12 +44,17 @@ namespace rent.user.application.UseCases.User.Register
             var user = _mapper.Map<rent.user.domain.Entities.User>(request);
 
             user.Password = _passwordEncripter.Encrypt(request.Password);
+            user.UserUniqueIdentifier = Guid.NewGuid();
 
             await _userWriteOnlyRepository.Add(user);
             await _unitOfWork.Commit();
 
             return new ResponseRegisteredUserJson { 
-                Name = user.Name
+                Name = user.Name,
+                Tokens = new ResponseTokensJson
+                {
+                    AccessToken = _accessTokenGenerator.Generate(user.UserUniqueIdentifier)
+                }
             };
         }
 

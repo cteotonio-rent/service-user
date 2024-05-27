@@ -2,6 +2,7 @@
 using CommomTestUtilities.Mapper;
 using CommomTestUtilities.Repositories;
 using CommomTestUtilities.Requests;
+using CommomTestUtilities.Token;
 using FluentAssertions;
 using rent.user.application.UseCases.User.Register;
 using rent.user.exceptions;
@@ -21,7 +22,9 @@ namespace UseCases.Test.User.Register
             var result = await useCase.Execute(request);
 
             result.Should().NotBeNull();
+            result.Tokens.Should().NotBeNull();
             result.Name.Should().Be(request.Name);
+            result.Tokens.AccessToken.Should().NotBeNullOrWhiteSpace();
         }
 
         [Fact]
@@ -56,11 +59,14 @@ namespace UseCases.Test.User.Register
             var userWriteOnlyRepository = UserWriteOnlyRepositoryBuilder.Build();
             var userReadOnlyRepositoryBuilder = new UserReadOnlyRepositoryBuilder();
             var unitOfWork = UnitOfWorkBuilder.Build();
+            var accessTokenGenerator = JwtTokenGeneratorBuilder.Build();
 
             if (string.IsNullOrEmpty(email) == false)
                 userReadOnlyRepositoryBuilder.ExistActiveUserWithEmail(email);
 
-            return new RegisterUserUseCase(userWriteOnlyRepository, userReadOnlyRepositoryBuilder.Build(), unitOfWork, mapper, passwordEncripter);
+            return new RegisterUserUseCase(userWriteOnlyRepository, 
+                userReadOnlyRepositoryBuilder.Build(), 
+                unitOfWork, mapper, passwordEncripter, accessTokenGenerator);
         }
     }
 }

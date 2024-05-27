@@ -3,7 +3,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using rent.user.application.Services.AutoMapper;
 using rent.user.application.Services.Cryptography;
+using rent.user.application.UseCases.Login.DoLogin;
+using rent.user.application.UseCases.User.Profile;
 using rent.user.application.UseCases.User.Register;
+using rent.user.application.UseCases.User.Update;
 
 namespace rent.user.application
 {
@@ -27,6 +30,9 @@ namespace rent.user.application
         private static void AddUseCases(IServiceCollection services)
         {
             services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
+            services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
+            services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
+            services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
         }
 
         private static void AddPasswordEcripter(IServiceCollection services, IConfiguration configuration)

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MongoDB.Bson;
 using rent.user.domain.Entities;
 using rent.user.domain.Repositories.User;
 using rent.user.infrastructure.DataAccess;
@@ -6,7 +7,7 @@ using System.ComponentModel;
 
 namespace rent.user.infrastructure.Repositories
 {
-    public class UserRepository : IUserReadOnlyRepository, IUserWriteOnlyRepository
+    public class UserRepository : IUserReadOnlyRepository, IUserWriteOnlyRepository, IUserUpdateOnlyRepository
     {
         private readonly UserDbContext _dbContext;
 
@@ -14,7 +15,21 @@ namespace rent.user.infrastructure.Repositories
 
         public async Task Add(User user) => await _dbContext.Users.AddAsync(user);
 
+        public void Update(User user) =>  _dbContext.Users.Update(user);
+
+        public async Task<User> GetById(ObjectId id) => await _dbContext.Users.FirstAsync(user => user._id == id);
+
         public async Task<bool> ExistActiveUserWithEmail(string email) => await _dbContext.Users.AnyAsync(u => u.Email == email && u.Active);
 
+        public async Task<bool?> ExistsActiveUserWithIdentifier(Guid userIdentifier) => await _dbContext.Users.AnyAsync(u => u.UserUniqueIdentifier.Equals(userIdentifier) && u.Active);
+        
+        public async Task<User?> GetByUserIdentifier(Guid userIdentifier) => await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.UserUniqueIdentifier.Equals(userIdentifier) && u.Active);
+        public async Task<User?> GetByEmailAndPassword(string email, string password)
+        {
+            return await _dbContext
+                .Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Email == email && u.Password == password && u.Active);
+        }
     }
 }
