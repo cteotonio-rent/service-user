@@ -73,6 +73,8 @@ namespace WebApi.Test
         public string GetPassword() => _password;
         public string GetName() => _user.Name;
 
+        public Guid GetUserIdentifier() => _user.UserUniqueIdentifier;
+
         private void StartDatabase(UserDbContext dbContext)
         {
             (_user, _password) = UserBuilder.Build();

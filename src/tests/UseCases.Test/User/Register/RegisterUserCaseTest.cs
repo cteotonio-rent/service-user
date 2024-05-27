@@ -2,6 +2,7 @@
 using CommomTestUtilities.Mapper;
 using CommomTestUtilities.Repositories;
 using CommomTestUtilities.Requests;
+using CommomTestUtilities.Token;
 using FluentAssertions;
 using rent.user.application.UseCases.User.Register;
 using rent.user.exceptions;

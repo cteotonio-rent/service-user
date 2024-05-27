@@ -1,6 +1,6 @@
 ﻿using rent.user.infrastructure.Security.Access.Generator;
 
-namespace UseCases.Test
+namespace CommomTestUtilities.Token
 {
     public class JwtTokenGeneratorBuilder
     {

@@ -3,6 +3,7 @@ using rent.user.api.Attributes;
 using rent.user.api.Filters;
 using rent.user.application.UseCases.User.Profile;
 using rent.user.application.UseCases.User.Register;
+using rent.user.application.UseCases.User.Update;
 using rent.user.communication.Requests;
 using rent.user.communication.Responses;
 
@@ -29,6 +30,18 @@ namespace rent.user.api.Controllers
         {
             var response = await useCase.Execute();
             return Ok(response);
+        }
+
+        [HttpPut]
+        [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ResponseErrorJson), statusCode: StatusCodes.Status400BadRequest)]
+        [AuthenticateUser]
+        public async Task<IActionResult> Put(
+            [FromServices] IUpdateUserUseCase useCase,
+            [FromBody] RequestUpdateUserJson request)
+        {
+            await useCase.Execute(request);
+            return NoContent();
         }
     }
 }

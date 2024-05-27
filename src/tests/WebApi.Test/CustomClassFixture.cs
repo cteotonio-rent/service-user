@@ -21,5 +21,30 @@ namespace WebApi.Test
 
             _httpClient.DefaultRequestHeaders.Add("Accept-Language", culture);
         }
+
+        protected async Task<HttpResponseMessage> DoGet(string method, string token = "", string culture = "en-US")
+        {
+            AuthorizeRequest(token);
+            ChangeRequestCulture(culture);
+            return await _httpClient.GetAsync(method);
+        }
+
+        private void AuthorizeRequest(string token)
+        {
+            if (string.IsNullOrWhiteSpace(token)) return;
+
+            if (_httpClient.DefaultRequestHeaders.Contains("Authorization"))
+                _httpClient.DefaultRequestHeaders.Remove("Authorization");
+
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+        }
+
+        protected async Task<HttpResponseMessage> DoPut(string method, object request, string token = "", string culture = "en-US")
+        {
+            AuthorizeRequest(token);
+            ChangeRequestCulture(culture);
+            return await _httpClient.PutAsJsonAsync(method, request);
+        }
     }
 }

@@ -41,6 +41,7 @@ namespace rent.user.infrastructure
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
             services.AddScoped<IUserReadOnlyRepository, UserRepository>();
+            services.AddScoped<IUserUpdateOnlyRepository, UserRepository>();
         }
 
         private static void AddTokens(IServiceCollection services, IConfiguration configuration)

@@ -2,16 +2,12 @@
 using CommomTestUtilities.Entities;
 using CommomTestUtilities.Repositories;
 using CommomTestUtilities.Requests;
+using CommomTestUtilities.Token;
 using FluentAssertions;
 using rent.user.application.UseCases.Login.DoLogin;
 using rent.user.communication.Requests;
 using rent.user.exceptions;
 using rent.user.exceptions.ExceptionsBase;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UseCases.Test.Login.DoLogin
 {

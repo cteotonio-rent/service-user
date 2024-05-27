@@ -19,6 +19,7 @@ namespace CommomTestUtilities.Entities
                 .RuleFor(user => user.Name, (f) => f.Person.FirstName)
                 .RuleFor(user => user.Email, (f, user) => f.Internet.Email())
                 .RuleFor(user => user.Password, f => passwordEncripter.Encrypt(password))
+                .RuleFor(user => user.UserUniqueIdentifier, _ => Guid.NewGuid())
                 .Generate();
 
             return (user, password);

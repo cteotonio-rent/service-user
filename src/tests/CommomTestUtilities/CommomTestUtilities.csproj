@@ -15,11 +15,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\backend\rent.user.application\rent.user.application.csproj" />
     <ProjectReference Include="..\..\backend\rent.user.domain\rent.user.domain.csproj" />
+    <ProjectReference Include="..\..\backend\rent.user.infrastructure\rent.user.infrastructure.csproj" />
     <ProjectReference Include="..\..\shared\rent.user.communication\rent.user.communication.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Tokens\" />
   </ItemGroup>
 
 </Project>
