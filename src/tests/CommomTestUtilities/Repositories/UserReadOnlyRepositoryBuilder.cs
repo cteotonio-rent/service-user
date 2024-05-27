@@ -1,4 +1,5 @@
 ﻿using Moq;
+using rent.user.domain.Entities;
 using rent.user.domain.Repositories.User;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,12 @@ namespace CommomTestUtilities.Repositories
         {
             _repository.Setup(repo => repo.ExistActiveUserWithEmail(email)).ReturnsAsync(true);
         }
+
+        public void GetByEmailAndPassword(User user)
+        {
+            _repository.Setup(repo => repo.GetByEmailAndPassword(user.Email, user.Password)).ReturnsAsync(user);
+        }
+
         public IUserReadOnlyRepository Build() => _repository.Object;
         
     }

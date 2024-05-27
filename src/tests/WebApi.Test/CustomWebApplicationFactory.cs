@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using CommomTestUtilities.Entities;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,9 @@ namespace WebApi.Test
     {
         private readonly MongoDbContainer mongoContainer;
         private readonly MongoClient mongoClient;
+
+        private rent.user.domain.Entities.User _user = default!;
+        private string _password = string.Empty;
 
         public CustomWebApplicationFactory()
         {
@@ -43,7 +47,15 @@ namespace WebApi.Test
                  {
                      options.UseMongoDB(mongoClient, "db_test");
                  });
+
+                 using var scope = services.BuildServiceProvider().CreateScope();
+
+                 var dbContext = scope.ServiceProvider.GetRequiredService<UserDbContext>();
+
+                 StartDatabase(dbContext);
              });
+
+
         }
 
         protected override void Dispose(bool disposing)
@@ -55,6 +67,20 @@ namespace WebApi.Test
             }
 
             base.Dispose(disposing);
+        }
+
+        public string GetEmail() => _user.Email;
+        public string GetPassword() => _password;
+        public string GetName() => _user.Name;
+
+        public Guid GetUserIdentifier() => _user.UserUniqueIdentifier;
+
+        private void StartDatabase(UserDbContext dbContext)
+        {
+            (_user, _password) = UserBuilder.Build();
+            dbContext.Users.Add(_user);
+
+            dbContext.SaveChanges();
         }
     }
 

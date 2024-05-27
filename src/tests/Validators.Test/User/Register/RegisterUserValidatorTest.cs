@@ -2,7 +2,6 @@
 using FluentAssertions;
 using rent.user.application.UseCases.User.Register;
 using rent.user.exceptions;
-using System.ComponentModel.DataAnnotations;
 
 namespace Validators.Test.User.Register
 {
@@ -10,7 +9,7 @@ namespace Validators.Test.User.Register
     public class RegisterUserValidatorTest
     {
         [Fact]
-        public void Sucess()
+        public void Success()
         {
             var validato = new RegisterUserValidator();
             var request = RequestRegisterUserJsonBuilder.Build();

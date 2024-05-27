@@ -8,6 +8,11 @@ using rent.user.domain.Repositories;
 using Microsoft.Extensions.Configuration;
 using Testcontainers.MongoDb;
 using DotNet.Testcontainers.Containers;
+using rent.user.domain.Security.Tokens;
+using rent.user.infrastructure.Security.Access.Generator;
+using rent.user.infrastructure.Security.Access.Validator;
+using rent.user.domain.Services.LoggedUser;
+using rent.user.infrastructure.Services.LoggedUser;
 
 namespace rent.user.infrastructure
 {
@@ -17,7 +22,8 @@ namespace rent.user.infrastructure
         {
             AddDbContext(services, configuration);
             AddRepositories(services);
-
+            AddTokens(services, configuration);
+            AddLoggedUser(services);
             if (configuration.GetValue<bool>("InMemoryTest"))
                 return;
         }
@@ -35,21 +41,21 @@ namespace rent.user.infrastructure
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
             services.AddScoped<IUserReadOnlyRepository, UserRepository>();
+            services.AddScoped<IUserUpdateOnlyRepository, UserRepository>();
         }
 
-        private static async Task<string> CreateMongoContainerConnectionString()
+        private static void AddTokens(IServiceCollection services, IConfiguration configuration)
         {
-            await using var mongoContainer = new MongoDbBuilder()
-                .WithImage("mongo")
-                .WithPortBinding(27017)
-                .WithName("mongo-test")
-                .Build();
+            services.AddScoped<IAccessTokenGenerator>(provider => new JwtTokenGenerator(
+                configuration.GetValue<uint>("Jwt:ExpirationTimeMinutes"),
+                singingKey: configuration.GetValue<string>("Jwt:SigningKey")!
+            ));
 
-            await mongoContainer.StartAsync();
-
-
-
-            return mongoContainer.GetConnectionString();
+            services.AddScoped<IAccessTokenValidator>(provider => new JwtTokenValidator(
+                configuration.GetValue<string>("Jwt:SigningKey")!));
         }
+
+        private static void AddLoggedUser(IServiceCollection services) => services.AddScoped<ILoggedUser, LoggedUser>();
+
     }
 }
