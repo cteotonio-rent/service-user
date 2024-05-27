@@ -18,4 +18,8 @@
     <ProjectReference Include="..\..\shared\rent.user.communication\rent.user.communication.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Tokens\" />
+  </ItemGroup>
+
 </Project>

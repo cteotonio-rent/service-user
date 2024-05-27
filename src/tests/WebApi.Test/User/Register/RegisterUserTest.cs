@@ -1,33 +1,31 @@
 ﻿using CommomTestUtilities.Requests;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
 using rent.user.exceptions;
 using System.Globalization;
 using System.Net;
-using System.Net.Http.Json;
 using System.Text.Json;
 using WebApi.Test.InlineData;
 
 namespace WebApi.Test.User.Register
 {
-    public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
+    public class RegisterUserTest : CustomClassFixture
     {
         private readonly string _url = "user";
-        private readonly HttpClient _httpClient;
-        public RegisterUserTest(CustomWebApplicationFactory factory) => _httpClient = factory.CreateClient();
+        public RegisterUserTest(CustomWebApplicationFactory factory) : base(factory) { }
 
         [Fact]
         public async Task Sucess()
         {
             var request = RequestRegisterUserJsonBuilder.Build();
-            var response = await _httpClient.PostAsJsonAsync(_url, request);
+            var response = await DoPost(_url, request);
             response.StatusCode.Should().Be(HttpStatusCode.Created);
 
             await using var responseBody = await response.Content.ReadAsStreamAsync();
 
             var responseData = await JsonDocument.ParseAsync(responseBody);
 
-            responseData.RootElement.GetProperty("name").GetString().Should().NotBeNullOrWhiteSpace().And.Be(request.Name); 
+            responseData.RootElement.GetProperty("name").GetString().Should().NotBeNullOrWhiteSpace().And.Be(request.Name);
+            responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString().Should().NotBeNullOrWhiteSpace();
         }
 
 
@@ -38,12 +36,7 @@ namespace WebApi.Test.User.Register
             var request = RequestRegisterUserJsonBuilder.Build();
             request.Name = string.Empty;
 
-            if(_httpClient.DefaultRequestHeaders.Contains("Accept-Language"))
-                _httpClient.DefaultRequestHeaders.Remove("Accept-Language");
-
-            _httpClient.DefaultRequestHeaders.Add("Accept-Language", culture);
-
-            var response = await _httpClient.PostAsJsonAsync(_url, request);
+            var response = await DoPost(_url, request, culture);
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
             await using var responseBody = await response.Content.ReadAsStreamAsync();
