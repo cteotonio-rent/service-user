@@ -1,6 +1,6 @@
 ﻿using Moq;
-using rent.user.domain.Entities;
-using rent.user.domain.Repositories.User;
+using rent.domain.Entities;
+using rent.domain.Repositories.User;
 
 namespace CommomTestUtilities.Repositories
 {

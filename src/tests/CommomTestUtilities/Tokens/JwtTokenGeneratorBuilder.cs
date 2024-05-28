@@ -1,4 +1,4 @@
-﻿using rent.user.infrastructure.Security.Access.Generator;
+﻿using rent.infrastructure.Security.Access.Generator;
 
 namespace CommomTestUtilities.Token
 {

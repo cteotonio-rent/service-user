@@ -1,6 +1,6 @@
 ﻿using Moq;
-using rent.user.domain.Entities;
-using rent.user.domain.Services.LoggedUser;
+using rent.domain.Entities;
+using rent.domain.Services.LoggedUser;
 
 namespace CommomTestUtilities.LoggedUser
 {

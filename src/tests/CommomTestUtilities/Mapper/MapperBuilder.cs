@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using rent.user.application.Services.AutoMapper;
+using rent.application.Services.AutoMapper;
 
 namespace CommomTestUtilities.Mapper
 {

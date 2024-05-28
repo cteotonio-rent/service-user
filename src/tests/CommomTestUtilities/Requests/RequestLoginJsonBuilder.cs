@@ -1,5 +1,5 @@
 ﻿using Bogus;
-using rent.user.communication.Requests;
+using rent.communication.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;

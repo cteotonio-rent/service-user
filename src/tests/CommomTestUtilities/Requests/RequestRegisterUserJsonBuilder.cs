@@ -1,5 +1,5 @@
 ﻿using Bogus;
-using rent.user.communication.Requests;
+using rent.communication.Requests;
 
 namespace CommomTestUtilities.Requests
 {

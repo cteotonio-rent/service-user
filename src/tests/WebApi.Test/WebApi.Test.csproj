@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\backend\rent.user.api\rent.user.api.csproj" />
+    <ProjectReference Include="..\..\backend\rent.api\rent.api.csproj" />
     <ProjectReference Include="..\CommomTestUtilities\CommomTestUtilities.csproj" />
   </ItemGroup>
 
