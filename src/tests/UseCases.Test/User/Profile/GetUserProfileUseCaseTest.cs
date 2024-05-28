@@ -2,7 +2,7 @@
 using CommomTestUtilities.LoggedUser;
 using CommomTestUtilities.Mapper;
 using FluentAssertions;
-using rent.user.application.UseCases.User.Profile;
+using rent.application.UseCases.User.Profile;
 
 namespace UseCases.Test.User.Profile
 {
@@ -23,7 +23,7 @@ namespace UseCases.Test.User.Profile
             result.Email.Should().Be(user.Email);
         }
 
-        private static GetUserProfileUseCase CreateUseCase(rent.user.domain.Entities.User user)
+        private static GetUserProfileUseCase CreateUseCase(rent.domain.Entities.User user)
         {
             var mapper = MapperBuilder.Build();
             var loggedUser = LoggedUserBuilder.Build(user);

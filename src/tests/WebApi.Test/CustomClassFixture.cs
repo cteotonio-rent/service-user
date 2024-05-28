@@ -8,8 +8,9 @@ namespace WebApi.Test
 
         public CustomClassFixture(CustomWebApplicationFactory factory) => _httpClient = factory.CreateClient();
 
-        protected async Task<HttpResponseMessage> DoPost(string method, object request, string culture = "en-US")
+        protected async Task<HttpResponseMessage> DoPost(string method, object request, string culture = "en-US", string token = "")
         {
+            AuthorizeRequest(token);
             ChangeRequestCulture(culture);
             return await _httpClient.PostAsJsonAsync(method, request);
         }

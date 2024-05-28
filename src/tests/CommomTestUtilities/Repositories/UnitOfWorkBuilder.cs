@@ -1,5 +1,5 @@
 ﻿using Moq;
-using rent.user.domain.Repositories;
+using rent.domain.Repositories;
 
 namespace CommomTestUtilities.Repositories
 {

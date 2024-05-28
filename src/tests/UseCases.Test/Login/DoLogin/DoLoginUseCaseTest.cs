@@ -4,10 +4,10 @@ using CommomTestUtilities.Repositories;
 using CommomTestUtilities.Requests;
 using CommomTestUtilities.Token;
 using FluentAssertions;
-using rent.user.application.UseCases.Login.DoLogin;
-using rent.user.communication.Requests;
-using rent.user.exceptions;
-using rent.user.exceptions.ExceptionsBase;
+using rent.application.UseCases.Login.DoLogin;
+using rent.communication.Requests;
+using rent.exceptions;
+using rent.exceptions.ExceptionsBase;
 
 namespace UseCases.Test.Login.DoLogin
 {
@@ -45,7 +45,7 @@ namespace UseCases.Test.Login.DoLogin
                 .Where(e => e.Message.Equals(ResourceMessagesException.EMAIL_OR_PASSWORD_INVALID));
         }
 
-        private static DoLoginUseCase CreateDoLoginUseCase(rent.user.domain.Entities.User? user = null)
+        private static DoLoginUseCase CreateDoLoginUseCase(rent.domain.Entities.User? user = null)
         {
             var passwordEncripter = PasswordEncripterBuilder.Build();
             var userReadOnlyRepository = new UserReadOnlyRepositoryBuilder();

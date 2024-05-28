@@ -1,7 +1,7 @@
 ﻿using CommomTestUtilities.Requests;
 using CommomTestUtilities.Token;
 using FluentAssertions;
-using rent.user.infrastructure.Security.Access.Generator;
+using rent.infrastructure.Security.Access.Generator;
 using System.Net;
 using System.Text.Json;
 

@@ -1,7 +1,7 @@
 ﻿using CommomTestUtilities.Requests;
 using FluentAssertions;
-using rent.user.application.UseCases.User.Update;
-using rent.user.exceptions;
+using rent.application.UseCases.User.Update;
+using rent.exceptions;
 
 namespace Validators.Test.User.Update
 {

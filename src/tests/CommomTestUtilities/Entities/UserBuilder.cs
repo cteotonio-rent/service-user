@@ -1,14 +1,12 @@
 ﻿using Bogus;
 using CommomTestUtilities.Cryptography;
-using rent.user.communication.Requests;
-using rent.user.domain.Entities;
+using rent.domain.Entities;
 
 namespace CommomTestUtilities.Entities
 {
     public class UserBuilder
     {
         
-
         public static (User user, string password) Build(int passwordLength = 10)
         {
             var passwordEncripter = PasswordEncripterBuilder.Build();

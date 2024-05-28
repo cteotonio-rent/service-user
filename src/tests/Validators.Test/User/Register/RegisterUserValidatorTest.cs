@@ -1,7 +1,7 @@
 ﻿using CommomTestUtilities.Requests;
 using FluentAssertions;
-using rent.user.application.UseCases.User.Register;
-using rent.user.exceptions;
+using rent.application.UseCases.User.Register;
+using rent.exceptions;
 
 namespace Validators.Test.User.Register
 {
@@ -11,9 +11,9 @@ namespace Validators.Test.User.Register
         [Fact]
         public void Success()
         {
-            var validato = new RegisterUserValidator();
+            var validator = new RegisterUserValidator();
             var request = RequestRegisterUserJsonBuilder.Build();
-            var result = validato.Validate(request);
+            var result = validator.Validate(request);
 
             result.IsValid.Should().BeTrue();
         }

@@ -1,4 +1,4 @@
-﻿using rent.user.application.Services.Cryptography;
+﻿using rent.application.Services.Cryptography;
 using System;
 using System.Collections.Generic;
 using System.Linq;

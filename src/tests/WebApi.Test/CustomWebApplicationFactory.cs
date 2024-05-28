@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
-using rent.user.infrastructure.DataAccess;
+using rent.domain.Entities;
+using rent.infrastructure.DataAccess;
 using Testcontainers.MongoDb;
 
 namespace WebApi.Test
@@ -14,7 +15,8 @@ namespace WebApi.Test
         private readonly MongoDbContainer mongoContainer;
         private readonly MongoClient mongoClient;
 
-        private rent.user.domain.Entities.User _user = default!;
+        private rent.domain.Entities.User _user = default!;
+        private rent.domain.Entities.Motorcycle _motorcycle = default!;
         private string _password = string.Empty;
 
         public CustomWebApplicationFactory()
@@ -72,6 +74,7 @@ namespace WebApi.Test
         public string GetEmail() => _user.Email;
         public string GetPassword() => _password;
         public string GetName() => _user.Name;
+        public rent.domain.Entities.Motorcycle GetMotorcycle() => _motorcycle;
 
         public Guid GetUserIdentifier() => _user.UserUniqueIdentifier;
 
@@ -79,6 +82,10 @@ namespace WebApi.Test
         {
             (_user, _password) = UserBuilder.Build();
             dbContext.Users.Add(_user);
+
+            _motorcycle = MotorcycleBuilder.Build();
+            _motorcycle.UserUniqueIdentifier = _user.UserUniqueIdentifier;
+            dbContext.Motorcycles.Add(_motorcycle);
 
             dbContext.SaveChanges();
         }

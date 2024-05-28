@@ -1,16 +1,11 @@
-﻿using CommomTestUtilities.Cryptography;
-using CommomTestUtilities.Entities;
+﻿using CommomTestUtilities.Entities;
 using CommomTestUtilities.LoggedUser;
-using CommomTestUtilities.Mapper;
 using CommomTestUtilities.Repositories;
 using CommomTestUtilities.Requests;
-using CommomTestUtilities.Token;
 using FluentAssertions;
-using rent.user.application.UseCases.User.Register;
-using rent.user.application.UseCases.User.Update;
-using rent.user.domain.Entities;
-using rent.user.exceptions;
-using rent.user.exceptions.ExceptionsBase;
+using rent.application.UseCases.User.Update;
+using rent.exceptions;
+using rent.exceptions.ExceptionsBase;
 
 namespace UseCases.Test.User.Update
 {
@@ -66,7 +61,7 @@ namespace UseCases.Test.User.Update
             user.Email.Should().NotBe(request.Email);
         }
 
-        private static UpdateUserUseCase CreateUseCase(rent.user.domain.Entities.User user, string? email = null)
+        private static UpdateUserUseCase CreateUseCase(rent.domain.Entities.User user, string? email = null)
         {
             var loggedUser = LoggedUserBuilder.Build(user);
             var userUpdateOnlyRepository = new UserUpdateOnlyRepositoryBuilder().GetById(user).Build();

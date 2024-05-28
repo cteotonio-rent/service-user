@@ -1,7 +1,7 @@
 ﻿using CommomTestUtilities.Requests;
 using CommomTestUtilities.Token;
 using FluentAssertions;
-using rent.user.exceptions;
+using rent.exceptions;
 using System.Globalization;
 using System.Net;
 using System.Text.Json;

@@ -4,9 +4,9 @@ using CommomTestUtilities.Repositories;
 using CommomTestUtilities.Requests;
 using CommomTestUtilities.Token;
 using FluentAssertions;
-using rent.user.application.UseCases.User.Register;
-using rent.user.exceptions;
-using rent.user.exceptions.ExceptionsBase;
+using rent.application.UseCases.User.Register;
+using rent.exceptions;
+using rent.exceptions.ExceptionsBase;
 
 namespace UseCases.Test.User.Register
 {
