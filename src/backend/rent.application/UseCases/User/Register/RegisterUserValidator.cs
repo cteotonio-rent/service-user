@@ -15,6 +15,18 @@ namespace rent.application.UseCases.User.Register
             {
                 RuleFor(user => user.Email).EmailAddress().WithMessage(ResourceMessagesException.EMAIL_INVALID);
             });
+            RuleFor(user => user.NRLE).NotEmpty().WithMessage(ResourceMessagesException.NRLE_EMPTY);
+            RuleFor(user => user.DriversLicense).NotEmpty().WithMessage(ResourceMessagesException.DRIVERS_LICENSE_EMPTY);
+            RuleFor(user => user.DriversLicenseCategory).NotEmpty().WithMessage(ResourceMessagesException.DRIVERS_LICENSE_CATEGORY_EMPTY);
+            When(user => !string.IsNullOrEmpty(user.DriversLicenseCategory), () =>
+            {
+                RuleFor(user => user.DriversLicenseCategory)
+                .Custom((x, context) =>
+                {
+                    if (!x.Equals("A") && !x.Equals("B") && !x.Equals("AB"))
+                        context.AddFailure(ResourceMessagesException.DRIVERS_LICENSE_CATEGORY_INVALID);
+                });
+            });
         }
     }
 }

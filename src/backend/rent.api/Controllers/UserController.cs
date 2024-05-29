@@ -6,6 +6,7 @@ using rent.application.UseCases.User.Register;
 using rent.application.UseCases.User.Update;
 using rent.communication.Requests;
 using rent.communication.Responses;
+using System.IO;
 
 namespace rent.api.Controllers
 {
@@ -43,5 +44,23 @@ namespace rent.api.Controllers
             await useCase.Execute(request);
             return NoContent();
         }
+
+        [HttpPut("image")]
+        [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ResponseErrorJson), statusCode: StatusCodes.Status400BadRequest)]
+        [AuthenticateUser]
+        public async Task<IActionResult> PutImage(
+            [FromServices] IUpdateUserImageUseCase useCase,
+            IFormFile file)
+        {
+            var memoryStream = new MemoryStream();
+            file.CopyTo(memoryStream);
+            memoryStream.Position = 0;
+            var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+
+            await useCase.Execute(memoryStream, extension);
+            return NoContent();
+        }
+
     }
 }

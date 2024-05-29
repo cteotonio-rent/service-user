@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DRIVERS_LICENSE_ALREADY_REGISTERED" xml:space="preserve">
+    <value>CNH já está registrado.</value>
+  </data>
+  <data name="DRIVERS_LICENSE_CATEGORY_EMPTY" xml:space="preserve">
+    <value>Categoria da CNH está vazia.</value>
+  </data>
+  <data name="DRIVERS_LICENSE_CATEGORY_INVALID" xml:space="preserve">
+    <value>Categoria da CNH é inválida.</value>
+  </data>
+  <data name="DRIVERS_LICENSE_EMPTY" xml:space="preserve">
+    <value>CNH está vazia.</value>
+  </data>
   <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
     <value>E-mail já existe</value>
   </data>
@@ -127,7 +139,10 @@
     <value>O e-mail é inválido.</value>
   </data>
   <data name="EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
-    <value>E-mail e/ou senha inválidos</value>
+    <value>E-mail e/ou senha inválidos.</value>
+  </data>
+  <data name="FILE_TYPE_INVALID" xml:space="preserve">
+    <value>Tipo de arquivo inválido. Somente arquivos PNG e BMP são permitidos.</value>
   </data>
   <data name="LICENSE_PLATE_ALREADY_REGISTERED" xml:space="preserve">
     <value>Placa já existe.</value>
@@ -144,6 +159,12 @@
   <data name="NO_TOKEN" xml:space="preserve">
     <value>Sem token.</value>
   </data>
+  <data name="NRLE_ALREADY_REGISTERED" xml:space="preserve">
+    <value>CNPJ já está registrado.</value>
+  </data>
+  <data name="NRLE_EMPTY" xml:space="preserve">
+    <value>CNPJ está vazio.</value>
+  </data>
   <data name="PASSWORD_EMPTY" xml:space="preserve">
     <value>A senha deve ter mais de 6 caracteres</value>
   </data>
@@ -157,9 +178,9 @@
     <value>Ano não pode estar vazio.</value>
   </data>
   <data name="YEAR_INVALID_IS_NOT_NUMBER" xml:space="preserve">
-    <value>O ano informado não é um número</value>
+    <value>O ano informado não é um número.</value>
   </data>
   <data name="YEAR_QTDE_CHARACTERES_INVALID" xml:space="preserve">
-    <value>Numero de dígitos está inválido</value>
+    <value>Numero de dígitos está inválido.</value>
   </data>
 </root>

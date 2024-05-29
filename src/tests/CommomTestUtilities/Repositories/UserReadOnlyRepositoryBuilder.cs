@@ -1,11 +1,6 @@
 ﻿using Moq;
 using rent.domain.Entities;
 using rent.domain.Repositories.User;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CommomTestUtilities.Repositories
 {
@@ -18,6 +13,16 @@ namespace CommomTestUtilities.Repositories
         public void ExistActiveUserWithEmail(string email)
         {
             _repository.Setup(repo => repo.ExistActiveUserWithEmail(email)).ReturnsAsync(true);
+        }
+
+        public void ExistActiveUserWithNRLE(string NRLE)
+        {
+            _repository.Setup(repo => repo.ExistActiveUserWithNRLE(NRLE)).ReturnsAsync(true);
+        }
+
+        public void ExistActiveUserWithDriversLicense(string driversLicense)
+        {
+            _repository.Setup(repo => repo.ExistActiveUserWithDriversLicense(driversLicense)).ReturnsAsync(true);
         }
 
         public void GetByEmailAndPassword(User user)

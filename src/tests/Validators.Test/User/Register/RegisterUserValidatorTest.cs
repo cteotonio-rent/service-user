@@ -74,5 +74,57 @@ namespace Validators.Test.User.Register
             result.Errors.Should().ContainSingle()
                 .And.Contain(x => x.ErrorMessage.Equals(ResourceMessagesException.PASSWORD_EMPTY));
         }
+
+        [Fact]
+        public void Error_NRLE_Empty()
+        {
+            var validator = new RegisterUserValidator();
+            var request = RequestRegisterUserJsonBuilder.Build();
+            request.NRLE = string.Empty;
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().ContainSingle()
+                .And.Contain(x => x.ErrorMessage.Equals(ResourceMessagesException.NRLE_EMPTY));
+        }
+
+        [Fact]
+        public void Error_DriversLicense_Empty()
+        {
+            var validator = new RegisterUserValidator();
+            var request = RequestRegisterUserJsonBuilder.Build();
+            request.DriversLicense = string.Empty;
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().ContainSingle()
+                .And.Contain(x => x.ErrorMessage.Equals(ResourceMessagesException.DRIVERS_LICENSE_EMPTY));
+        }
+
+        [Fact]
+        public void Error_DriversLicenseCategory_Empty()
+        {
+            var validator = new RegisterUserValidator();
+            var request = RequestRegisterUserJsonBuilder.Build();
+            request.DriversLicenseCategory = string.Empty;
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().ContainSingle()
+                .And.Contain(x => x.ErrorMessage.Equals(ResourceMessagesException.DRIVERS_LICENSE_CATEGORY_EMPTY));
+        }
+
+        [Fact]
+        public void Error_DriversLicenseCategory_Invalid()
+        {
+            var validator = new RegisterUserValidator();
+            var request = RequestRegisterUserJsonBuilder.Build();
+            request.DriversLicenseCategory = "X423$";
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().ContainSingle()
+                .And.Contain(x => x.ErrorMessage.Equals(ResourceMessagesException.DRIVERS_LICENSE_CATEGORY_INVALID));
+        }
     }
 }

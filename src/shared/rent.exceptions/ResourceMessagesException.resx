@@ -117,8 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DRIVERS_LICENSE_ALREADY_REGISTERED" xml:space="preserve">
+    <value>Driver's License Category already exists.</value>
+  </data>
+  <data name="DRIVERS_LICENSE_CATEGORY_EMPTY" xml:space="preserve">
+    <value>Driver's License Category is empty.</value>
+  </data>
+  <data name="DRIVERS_LICENSE_CATEGORY_INVALID" xml:space="preserve">
+    <value>Driver's License Category is invalid.</value>
+  </data>
+  <data name="DRIVERS_LICENSE_EMPTY" xml:space="preserve">
+    <value>Driver's License is empty.</value>
+  </data>
   <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
-    <value>Email already exists</value>
+    <value>Email already exists.</value>
   </data>
   <data name="EMAIL_EMPTY" xml:space="preserve">
     <value>The email cannot be empty.</value>
@@ -127,7 +139,10 @@
     <value>The email is invalid.</value>
   </data>
   <data name="EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
-    <value>Invalid email and/or password</value>
+    <value>Invalid email and/or password.</value>
+  </data>
+  <data name="FILE_TYPE_INVALID" xml:space="preserve">
+    <value>Invalid file type. Only PNG and BMP files are allowed.</value>
   </data>
   <data name="LICENSE_PLATE_ALREADY_REGISTERED" xml:space="preserve">
     <value>License Plate already exists.</value>
@@ -143,6 +158,12 @@
   </data>
   <data name="NO_TOKEN" xml:space="preserve">
     <value>No token.</value>
+  </data>
+  <data name="NRLE_ALREADY_REGISTERED" xml:space="preserve">
+    <value>National Registry of Legal Entities already exists.</value>
+  </data>
+  <data name="NRLE_EMPTY" xml:space="preserve">
+    <value>National Registry of Legal Entities is empty.</value>
   </data>
   <data name="PASSWORD_EMPTY" xml:space="preserve">
     <value>The password must be longer than 6 characters.</value>

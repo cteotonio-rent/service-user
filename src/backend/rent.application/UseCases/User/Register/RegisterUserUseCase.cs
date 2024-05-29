@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using FluentValidation.Results;
-using rent.application.Services.AutoMapper;
 using rent.application.Services.Cryptography;
 using rent.communication.Requests;
 using rent.communication.Responses;
@@ -45,6 +44,7 @@ namespace rent.application.UseCases.User.Register
 
             user.Password = _passwordEncripter.Encrypt(request.Password);
             user.UserUniqueIdentifier = Guid.NewGuid();
+            user.UserType = domain.Enuns.UserType.DeliveryPerson;
 
             await _userWriteOnlyRepository.Add(user);
             await _unitOfWork.Commit();
@@ -66,6 +66,15 @@ namespace rent.application.UseCases.User.Register
             var emailExists = await _userReadOnlyRepository.ExistActiveUserWithEmail(request.Email);
             if (emailExists)
                 result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesException.EMAIL_ALREADY_REGISTERED));
+
+            var nrleExists = await _userReadOnlyRepository.ExistActiveUserWithNRLE(request.NRLE);
+            if (nrleExists)
+                result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesException.NRLE_ALREADY_REGISTERED));
+
+            var driversLicenseExists = await _userReadOnlyRepository.ExistActiveUserWithDriversLicense(request.DriversLicense);
+            if (driversLicenseExists)
+                result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesException.DRIVERS_LICENSE_ALREADY_REGISTERED));
+
 
             if (!result.IsValid)
             {

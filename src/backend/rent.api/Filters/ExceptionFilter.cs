@@ -32,6 +32,11 @@ namespace rent.api.Filters
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(context.Exception.Message));
             }
+            else if (context.Exception is rent.exceptions.ExceptionsBase.InvalidFileTypeException)
+            {
+                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(context.Exception.Message));
+            }
         }
 
         private void ThrowUnknowException(ExceptionContext context)

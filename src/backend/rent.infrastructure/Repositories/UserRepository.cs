@@ -21,6 +21,10 @@ namespace rent.infrastructure.Repositories
 
         public async Task<bool> ExistActiveUserWithEmail(string email) => await _dbContext.Users.AnyAsync(u => u.Email == email && u.Active);
 
+        public async Task<bool> ExistActiveUserWithNRLE(string NRLE) => await _dbContext.Users.AnyAsync(u => u.NRLE == NRLE && u.Active);
+
+        public async Task<bool> ExistActiveUserWithDriversLicense(string driversLicense) => await _dbContext.Users.AnyAsync(u => u.DriversLicense == driversLicense && u.Active);
+
         public async Task<bool?> ExistsActiveUserWithIdentifier(Guid userIdentifier) => await _dbContext.Users.AnyAsync(u => u.UserUniqueIdentifier.Equals(userIdentifier) && u.Active);
         
         public async Task<User?> GetByUserIdentifier(Guid userIdentifier) => await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.UserUniqueIdentifier.Equals(userIdentifier) && u.Active);
