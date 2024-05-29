@@ -61,7 +61,43 @@ namespace rent.exceptions {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Email already exists.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Driver&apos;s License Category already exists..
+        /// </summary>
+        public static string DRIVERS_LICENSE_ALREADY_REGISTERED {
+            get {
+                return ResourceManager.GetString("DRIVERS_LICENSE_ALREADY_REGISTERED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Driver&apos;s License Category is empty..
+        /// </summary>
+        public static string DRIVERS_LICENSE_CATEGORY_EMPTY {
+            get {
+                return ResourceManager.GetString("DRIVERS_LICENSE_CATEGORY_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Driver&apos;s License Category is invalid..
+        /// </summary>
+        public static string DRIVERS_LICENSE_CATEGORY_INVALID {
+            get {
+                return ResourceManager.GetString("DRIVERS_LICENSE_CATEGORY_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Driver&apos;s License is empty..
+        /// </summary>
+        public static string DRIVERS_LICENSE_EMPTY {
+            get {
+                return ResourceManager.GetString("DRIVERS_LICENSE_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Email already exists..
         /// </summary>
         public static string EMAIL_ALREADY_REGISTERED {
             get {
@@ -88,11 +124,20 @@ namespace rent.exceptions {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Invalid email and/or password.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Invalid email and/or password..
         /// </summary>
         public static string EMAIL_OR_PASSWORD_INVALID {
             get {
                 return ResourceManager.GetString("EMAIL_OR_PASSWORD_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Invalid file type. Only PNG and BMP files are allowed..
+        /// </summary>
+        public static string FILE_TYPE_INVALID {
+            get {
+                return ResourceManager.GetString("FILE_TYPE_INVALID", resourceCulture);
             }
         }
         
@@ -138,6 +183,24 @@ namespace rent.exceptions {
         public static string NO_TOKEN {
             get {
                 return ResourceManager.GetString("NO_TOKEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a National Registry of Legal Entities already exists..
+        /// </summary>
+        public static string NRLE_ALREADY_REGISTERED {
+            get {
+                return ResourceManager.GetString("NRLE_ALREADY_REGISTERED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a National Registry of Legal Entities is empty..
+        /// </summary>
+        public static string NRLE_EMPTY {
+            get {
+                return ResourceManager.GetString("NRLE_EMPTY", resourceCulture);
             }
         }
         

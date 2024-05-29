@@ -1,19 +1,19 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using rent.domain.Repositories.User;
-using rent.infrastructure.Repositories;
-using rent.infrastructure.DataAccess;
-using MongoDB.Driver;
-using Microsoft.EntityFrameworkCore;
-using rent.domain.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Testcontainers.MongoDb;
-using DotNet.Testcontainers.Containers;
+using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Driver;
+using rent.domain.Repositories;
+using rent.domain.Repositories.Motorcycle;
+using rent.domain.Repositories.Rental;
+using rent.domain.Repositories.RentalPlan;
+using rent.domain.Repositories.User;
 using rent.domain.Security.Tokens;
+using rent.domain.Services.LoggedUser;
+using rent.infrastructure.DataAccess;
+using rent.infrastructure.Repositories;
 using rent.infrastructure.Security.Access.Generator;
 using rent.infrastructure.Security.Access.Validator;
-using rent.domain.Services.LoggedUser;
 using rent.infrastructure.Services.LoggedUser;
-using rent.domain.Repositories.Motorcycle;
 
 namespace rent.infrastructure
 {
@@ -31,10 +31,13 @@ namespace rent.infrastructure
 
         private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
         {
-
             var mongoClient = new MongoClient(configuration.GetConnectionString("Connection"));
-            services.AddDbContext<UserDbContext>(dbContextOptions => { dbContextOptions.UseMongoDB(mongoClient, databaseName: configuration.GetConnectionString("Database")!); });
-
+            services.AddDbContext<UserDbContext>(dbContextOptions => 
+            { 
+                dbContextOptions.UseMongoDB(
+                    mongoClient, 
+                    databaseName: configuration.GetConnectionString("Database")!); 
+            });
         }
 
         private static void AddRepositories(IServiceCollection services)
@@ -46,6 +49,12 @@ namespace rent.infrastructure
 
             services.AddScoped<IMotorcycleWriteOnlyRepository, MotorcycleRepository>();
             services.AddScoped<IMotorcycleReadOnlyRepository, MotorcycleRepository>();
+            services.AddScoped<IMotorcycleUpdateOnlyRepository, MotorcycleRepository>();
+
+            services.AddScoped<IRentalReadOnlyRepository, RentalRepository>();
+            services.AddScoped<IRentalWriteOnlyRepository, RentalRepository>();
+
+            services.AddScoped<IRentalPlanReadOnlyRepository, RentalPlanRepository>();
         }
 
         private static void AddTokens(IServiceCollection services, IConfiguration configuration)

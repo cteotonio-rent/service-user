@@ -52,7 +52,31 @@ namespace UseCases.Test.User.Register
                 .Where(e => e.ErrorMessages.Count == 1 && e.ErrorMessages.Contains(ResourceMessagesException.NAME_EMPTY));
         }
 
-        private static RegisterUserUseCase CreateUseCase(string? email = null)
+        [Fact]
+        public async Task Error_NRLE_Already_Registered()
+        {
+            var request = RequestRegisterUserJsonBuilder.Build();
+            var usecase = CreateUseCase(NRLE: request.NRLE);
+
+            Func<Task> act = async () => await usecase.Execute(request);
+
+            (await act.Should().ThrowAsync<ErrorOnValidationException>())
+                .Where(e => e.ErrorMessages.Count == 1 && e.ErrorMessages.Contains(ResourceMessagesException.NRLE_ALREADY_REGISTERED));
+        }
+
+        [Fact]
+        public async Task Error_DriversLicense_Already_Registered()
+        {
+            var request = RequestRegisterUserJsonBuilder.Build();
+            var usecase = CreateUseCase(driversLicense: request.DriversLicense);
+
+            Func<Task> act = async () => await usecase.Execute(request);
+
+            (await act.Should().ThrowAsync<ErrorOnValidationException>())
+                .Where(e => e.ErrorMessages.Count == 1 && e.ErrorMessages.Contains(ResourceMessagesException.DRIVERS_LICENSE_ALREADY_REGISTERED));
+        }
+
+        private static RegisterUserUseCase CreateUseCase(string? email = null, string? NRLE = null, string? driversLicense = null)
         {
             var mapper = MapperBuilder.Build();
             var passwordEncripter = PasswordEncripterBuilder.Build();
@@ -63,6 +87,12 @@ namespace UseCases.Test.User.Register
 
             if (string.IsNullOrEmpty(email) == false)
                 userReadOnlyRepositoryBuilder.ExistActiveUserWithEmail(email);
+
+            if (string.IsNullOrEmpty(NRLE) == false)
+                userReadOnlyRepositoryBuilder.ExistActiveUserWithNRLE(NRLE);
+
+            if (string.IsNullOrEmpty(driversLicense) == false)
+                userReadOnlyRepositoryBuilder.ExistActiveUserWithDriversLicense(driversLicense);
 
             return new RegisterUserUseCase(userWriteOnlyRepository, 
                 userReadOnlyRepositoryBuilder.Build(), 

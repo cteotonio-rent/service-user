@@ -6,7 +6,7 @@ using rent.exceptions;
 
 namespace Validators.Test.Motorcycle.Register
 {
-    public  class RegisterMotorcycleValidate
+    public  class RegisterMotorcycleValidateTest
     {
         [Fact]
         public void Success()

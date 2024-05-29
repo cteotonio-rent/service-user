@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using rent.api.Attributes;
 using rent.application.UseCases.Motorcycle.Get;
 using rent.application.UseCases.Motorcycle.Register;
+using rent.application.UseCases.Motorcycle.Update;
 using rent.communication.Requests;
 using rent.communication.Responses;
 
@@ -31,6 +33,18 @@ namespace rent.api.Controllers
             var response = await useCase.Execute(licensePlate);
             if (response is not null)
                 return Ok(response);
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
+        [AuthenticateUser]
+        public async Task<IActionResult> Put(
+            [FromServices] IUpdateMotorcycleLicensePlateUseCase useCase,
+            [FromRoute] ObjectId id,
+            [FromBody] RequestUpdateMotorcycleLicensePlateJson request)
+        {
+            await useCase.Execute(id, request);
             return NoContent();
         }
     }
