@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Bogus" Version="35.5.1" />
+    <PackageReference Include="Moq" Version="4.20.70" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\backend\rent.application\rent.application.csproj" />
+    <ProjectReference Include="..\..\backend\rent.domain\rent.domain.csproj" />
+    <ProjectReference Include="..\..\backend\rent.infrastructure\rent.infrastructure.csproj" />
+    <ProjectReference Include="..\..\shared\rent.communication\rent.communication.csproj" />
+  </ItemGroup>
+
+</Project>

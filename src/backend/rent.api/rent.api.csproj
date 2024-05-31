@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+    <PackageReference Include="Serilog.Sinks.GrafanaLoki" Version="1.1.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\shared\rent.communication\rent.communication.csproj" />
+    <ProjectReference Include="..\rent.application\rent.application.csproj" />
+    <ProjectReference Include="..\rent.domain\rent.domain.csproj" />
+    <ProjectReference Include="..\rent.infrastructure\rent.infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
