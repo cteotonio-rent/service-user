@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using rent.domain.Entities;
+using rent.domain.Enuns;
 using rent.domain.Security.Tokens;
 using rent.domain.Services.LoggedUser;
 using rent.infrastructure.DataAccess;
@@ -31,6 +32,12 @@ namespace rent.infrastructure.Services.LoggedUser
             var user = await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(u => u.UserUniqueIdentifier.Equals(userIdentifier));
             
             return user;
+        }
+
+        public async Task<bool> IsAuthorized (List<UserType> userTypeList)
+        {
+            var user = await User();
+            return userTypeList.Any(ut => ut == user.UserType);
         }
     }
 }

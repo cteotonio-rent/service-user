@@ -5,6 +5,6 @@ namespace rent.application.UseCases.Motorcycle.Update
 {
     public interface IUpdateMotorcycleLicensePlateUseCase
     {
-        Task Execute(ObjectId id, RequestUpdateMotorcycleLicensePlateJson request);
+        Task Execute(string id, RequestUpdateMotorcycleLicensePlateJson request);
     }
 }

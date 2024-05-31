@@ -35,10 +35,25 @@ namespace rent.api.Filters
             else if (context.Exception is rent.exceptions.ExceptionsBase.InvalidFileTypeException)
             {
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                context.Result = new BadRequestObjectResult(new ResponseErrorJson(context.Exception.Message));
+            }
+            else if (context.Exception is rent.exceptions.ExceptionsBase.NotFoundException)
+            {
+                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                context.Result = new NotFoundObjectResult(new ResponseErrorJson(context.Exception.Message));
+            }
+            else if (context.Exception is rent.exceptions.ExceptionsBase.RentUnauthorizedAccessException)
+            {
+                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(context.Exception.Message));
             }
-        }
+            else
+            {
+                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                context.Result = new BadRequestObjectResult(new ResponseErrorJson(context.Exception.Message));
+            }
 
+        }
         private void ThrowUnknowException(ExceptionContext context)
         {
             context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;

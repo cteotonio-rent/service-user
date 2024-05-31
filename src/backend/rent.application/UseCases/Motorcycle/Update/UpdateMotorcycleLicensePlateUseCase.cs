@@ -29,11 +29,11 @@ namespace rent.application.UseCases.Motorcycle.Update
             _unitOfWork = unitOfWork;
         }
 
-        public async Task Execute(ObjectId id, RequestUpdateMotorcycleLicensePlateJson request)
+        public async Task Execute(string id, RequestUpdateMotorcycleLicensePlateJson request)
         {
-            await Validate(id, request);
+            await Validate(ObjectId.Parse(id), request);
             var loggedUser = await _loggedUser.User();
-            var motorcycle = await _motorcycleUpdateOnlyRepository.GetById(id);
+            var motorcycle = await _motorcycleUpdateOnlyRepository.GetById(ObjectId.Parse(id));
 
             motorcycle.LicensePlate = request.LicensePlate;
             motorcycle.UserUniqueIdentifier = loggedUser.UserUniqueIdentifier;
@@ -59,7 +59,6 @@ namespace rent.application.UseCases.Motorcycle.Update
                         result.Errors.Add(new ValidationFailure(string.Empty, ResourceMessagesException.LICENSE_PLATE_ALREADY_REGISTERED));
                 }
             }
-
 
             if (!result.IsValid)
             {

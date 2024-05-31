@@ -6,5 +6,6 @@ namespace rent.domain.Repositories.Motorcycle
     {
         Task<Entities.Motorcycle> GetById(ObjectId id);
         void UpdateLicensePlate(Entities.Motorcycle motorcycle);
+        void Update(Entities.Motorcycle motorcycle);
     }
 }

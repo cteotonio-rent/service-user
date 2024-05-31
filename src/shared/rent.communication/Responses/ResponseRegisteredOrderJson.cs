@@ -2,5 +2,6 @@
 {
     public class ResponseRegisteredOrderJson
     {
+        public string Id { get; set; }
     }
 }

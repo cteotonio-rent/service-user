@@ -7,5 +7,6 @@ namespace rent.domain.Entities
         public decimal Price { get; set; } = 0;
         public int Status { get; set; } = 0;
         public ObjectId? UserId { get; set; } = null;
+        public ObjectId? DeliveryPersonId { get; set; } = null;
     }
 }

@@ -3,9 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 using rent.application.Services.AutoMapper;
 using rent.application.Services.Cryptography;
 using rent.application.UseCases.Login.DoLogin;
+using rent.application.UseCases.Motorcycle.Delete;
 using rent.application.UseCases.Motorcycle.Get;
 using rent.application.UseCases.Motorcycle.Register;
 using rent.application.UseCases.Motorcycle.Update;
+using rent.application.UseCases.NotifyDeliveryPerson.Register;
 using rent.application.UseCases.Order.AcceptOrder;
 using rent.application.UseCases.Order.DeliverOrder;
 using rent.application.UseCases.Order.GetOrderDeliverMan;
@@ -51,6 +53,7 @@ namespace rent.application
             services.AddScoped<IRegisterMotorcycleUseCase, RegisterMotorcycleUseCase>();
             services.AddScoped<IGetMotorcycleUseCase, GetMotorcycleUseCase>();
             services.AddScoped<IUpdateMotorcycleLicensePlateUseCase, UpdateMotorcycleLicensePlateUseCase>();
+            services.AddScoped<IDeleteMotorcycleUseCase, DeleteMotorcycleUseCase>();
             #endregion Motorcycle
 
             #region Rental
@@ -63,6 +66,10 @@ namespace rent.application
             services.AddScoped<IRegisterOrderUseCase, RegisterOrderUseCase>();
             services.AddScoped<IDeliverOrderUseCase, DeliverOrderUseCase>();
             #endregion Order
+
+            # region AWS SQS
+            services.AddScoped<INotifyDeliveryPersonUseCase, NotifyDeliveryPersonUseCase>();
+            #endregion AWS SQS
 
 
         }

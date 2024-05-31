@@ -6,5 +6,7 @@
         public string LicensePlate { get; set; } = string.Empty;
         public string Year { get; set; } = string.Empty;
         public Guid UserUniqueIdentifier { get; set; }
+
+        public int MotorcycleStatus { get; set; }
     }
 }

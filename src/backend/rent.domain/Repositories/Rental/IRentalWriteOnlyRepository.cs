@@ -2,5 +2,6 @@
 {
     public interface IRentalWriteOnlyRepository
     {
+        Task Add(Entities.Rental rental);
     }
 }

@@ -11,6 +11,7 @@ namespace rent.domain.Entities
 
         public UserType? UserType { get; set; } = null;
 
+        public bool Available { get; set; } = true;
         public string? NRLE { get; set; } = string.Empty;
         public DateTime? DateOfBirth { get; set; } = DateTime.MinValue;
         public string? DriversLicense { get; set; } = string.Empty;
