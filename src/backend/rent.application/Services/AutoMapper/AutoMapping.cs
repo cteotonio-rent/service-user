@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using rent.communication.Requests;
 using rent.communication.Responses;
+using rent.domain;
 
 namespace rent.application.Services.AutoMapper
 {
@@ -22,9 +23,12 @@ namespace rent.application.Services.AutoMapper
 
         private void DomainToResponse()
         {
-            CreateMap<rent.domain.Entities.User, ResponseUserProfileJson>();
+            CreateMap<domain.Entities.User, ResponseUserProfileJson>();
             CreateMap<rent.domain.Entities.Motorcycle, ResponseGetMotocycle>()
                 .ForMember(dest => dest._Id, opt => opt.MapFrom(src => src._id.ToString()));
+            CreateMap<domain.Entities.DeliveryPerson, DeliveryPersonJson>();
+            CreateMap<domain.Entities.DeliveryPersonNotification, ResponseGetOrderDeliveryPersonJson>()
+                .ForMember(dest => dest.DeliveryPerson, opt => opt.MapFrom(src => src.User));
         }
 
     }

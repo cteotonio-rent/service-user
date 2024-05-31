@@ -153,8 +153,17 @@
   <data name="MODEL_EMPTY" xml:space="preserve">
     <value>Model está vazio.</value>
   </data>
+  <data name="MOTORCYCLE_NOT_AVAILABLE" xml:space="preserve">
+    <value>Não há motos disponíveis.</value>
+  </data>
+  <data name="MOTORCYCLE_RENTAL_HISTORY" xml:space="preserve">
+    <value>Há histórico de locação.</value>
+  </data>
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>O nome não pode estar vazio.</value>
+  </data>
+  <data name="NOTIFICATION_NOT_SEND" xml:space="preserve">
+    <value>Notificação não foi enviada para você.</value>
   </data>
   <data name="NO_TOKEN" xml:space="preserve">
     <value>Sem token.</value>
@@ -165,8 +174,41 @@
   <data name="NRLE_EMPTY" xml:space="preserve">
     <value>CNPJ está vazio.</value>
   </data>
+  <data name="ORDER_ACCEPTED" xml:space="preserve">
+    <value>Pedido já foi aceito.</value>
+  </data>
+  <data name="ORDER_ACCEPTED_ANOTHER_USER" xml:space="preserve">
+    <value>Pedido aceito por outro usuário.</value>
+  </data>
+  <data name="ORDER_NOT_ACCEPTED" xml:space="preserve">
+    <value>Pedido não foi aceito.</value>
+  </data>
+  <data name="ORDER_NOT_AVAILABLE" xml:space="preserve">
+    <value>Pedido não está disponível</value>
+  </data>
+  <data name="ORDER_PRICE_INVALID" xml:space="preserve">
+    <value>Preço do Pedido é inválido.</value>
+  </data>
   <data name="PASSWORD_EMPTY" xml:space="preserve">
     <value>A senha deve ter mais de 6 caracteres</value>
+  </data>
+  <data name="REAL_END_DATE_INVALID" xml:space="preserve">
+    <value>Data de devolução deve ser maior que a data de retirada.</value>
+  </data>
+  <data name="RENTAL_PLAN_DAYS_INVALID" xml:space="preserve">
+    <value>Rental plan days are mandatory.</value>
+  </data>
+  <data name="RENTAL_PLAN_DAYS_NOT_ALLOWED" xml:space="preserve">
+    <value>Rental plan is not allowed.</value>
+  </data>
+  <data name="RENTAL_PLAN_NOT_EXIST" xml:space="preserve">
+    <value>Plano de locação não existe.</value>
+  </data>
+  <data name="RESOURCE_NOT_FOUND" xml:space="preserve">
+    <value>Recurso não encontrado.</value>
+  </data>
+  <data name="UNAUTHORIZED_ACCESS" xml:space="preserve">
+    <value>Tentativa de realizar uma operação não autorizada.</value>
   </data>
   <data name="UNKNOWN_ERROR" xml:space="preserve">
     <value>Erro desconhecido.</value>

@@ -2,5 +2,6 @@
 {
     public class RequestRegisterOrderJson
     {
+        public decimal Price { get; set; } = 0;
     }
 }

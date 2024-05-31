@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using rent.api.Attributes;
+using rent.application.UseCases.Motorcycle.Delete;
 using rent.application.UseCases.Motorcycle.Get;
 using rent.application.UseCases.Motorcycle.Register;
 using rent.application.UseCases.Motorcycle.Update;
@@ -41,10 +42,22 @@ namespace rent.api.Controllers
         [AuthenticateUser]
         public async Task<IActionResult> Put(
             [FromServices] IUpdateMotorcycleLicensePlateUseCase useCase,
-            [FromRoute] ObjectId id,
+            [FromRoute] string id,
             [FromBody] RequestUpdateMotorcycleLicensePlateJson request)
         {
             await useCase.Execute(id, request);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(statusCode: StatusCodes.Status204NoContent)]
+        [ProducesResponseType(statusCode: StatusCodes.Status404NotFound)]
+        [AuthenticateUser]
+        public async Task<IActionResult> Delete(
+            [FromServices] IDeleteMotorcycleUseCase useCase,
+            [FromRoute] string id)
+        {
+            await useCase.Execute(id);
             return NoContent();
         }
     }

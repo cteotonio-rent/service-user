@@ -15,11 +15,17 @@ namespace rent.infrastructure.Repositories
 
         public async Task<bool> ExistActiveMotorcycleWithLicensePlate(string licensePlate) => await _dbContext.Motorcycles.AnyAsync(m => m.LicensePlate.Equals(licensePlate) && m.Active);
 
+        public async Task<bool> ExistActiveMotorcycleWithStatus(int statusId) => await _dbContext.Motorcycles.AnyAsync(m => m.MotorcycleStatus.Equals(statusId) && m.Active);
+
         public async Task<Motorcycle> GetById(ObjectId id) => await _dbContext.Motorcycles.FirstAsync(m => m._id == id);
+
+        public async Task<Motorcycle?> GetFirstActiveMotorcycleByStatus(int statusId) => await _dbContext.Motorcycles.AsNoTracking().FirstOrDefaultAsync(m => m.MotorcycleStatus.Equals(statusId) && m.Active);
 
         public async Task<Motorcycle?> GetMotorcycleByLicensePlate(string licensePlate) => await _dbContext.Motorcycles.FirstOrDefaultAsync(m => m.LicensePlate.Equals(licensePlate) && m.Active);
 
-        public void UpdateLicensePlate(Motorcycle motorcycle) => _dbContext.Motorcycles.Update(motorcycle);
+        public void UpdateLicensePlate(Motorcycle motorcycle) => Update(motorcycle);
+
+        public void Update(Motorcycle motorcycle) => _dbContext.Motorcycles.Update(motorcycle);
     }
 
 }

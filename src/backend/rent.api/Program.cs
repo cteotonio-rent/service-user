@@ -5,6 +5,35 @@ using rent.api.Token;
 using rent.application;
 using rent.domain.Security.Tokens;
 using rent.infrastructure;
+using Serilog.Formatting.Compact;
+using Serilog.Sinks.GrafanaLoki;
+using Serilog;
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Information)
+    .Enrich.FromLogContext()
+    .Enrich.WithProperty("Application", "Rent-Service")
+    .Enrich.WithProperty("Environment", "Development")
+    .WriteTo.Console(new RenderedCompactJsonFormatter())
+    .WriteTo.GrafanaLoki(
+        "http://localhost:3100",
+        null,
+        new Dictionary<string, string>() { { "app", "Rent-Service" } }, // Global labels
+        Serilog.Events.LogEventLevel.Information,
+        GrafanaLokiHelpers.DefaultOutputTemplate,
+        null,
+                null,
+                null,
+                null,
+                1000,
+                null,
+                null,
+                TimeSpan.FromSeconds(2),
+                null,
+                null,
+                null,
+                true)
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,6 +79,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddScoped<ITokenProvider, HttpContexTokenValue>();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddSerilog(Log.Logger);
 
 var app = builder.Build();
 
@@ -62,8 +92,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseMiddleware<CultureMiddleware>();
 
-//app.UseExceptionHandler(options => options.);
-//app.UseMvc();
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 

@@ -169,6 +169,24 @@ namespace rent.exceptions {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a No motorcycle available..
+        /// </summary>
+        public static string MOTORCYCLE_NOT_AVAILABLE {
+            get {
+                return ResourceManager.GetString("MOTORCYCLE_NOT_AVAILABLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a There is a rental history..
+        /// </summary>
+        public static string MOTORCYCLE_RENTAL_HITORY {
+            get {
+                return ResourceManager.GetString("MOTORCYCLE_RENTAL_HITORY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The name cannot be empty..
         /// </summary>
         public static string NAME_EMPTY {
@@ -183,6 +201,15 @@ namespace rent.exceptions {
         public static string NO_TOKEN {
             get {
                 return ResourceManager.GetString("NO_TOKEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Notification was not sent to you..
+        /// </summary>
+        public static string NOTIFICATION_NOT_SEND {
+            get {
+                return ResourceManager.GetString("NOTIFICATION_NOT_SEND", resourceCulture);
             }
         }
         
@@ -205,11 +232,110 @@ namespace rent.exceptions {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Order already accepted.
+        /// </summary>
+        public static string ORDER_ACCEPTED {
+            get {
+                return ResourceManager.GetString("ORDER_ACCEPTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Order accepted by another user..
+        /// </summary>
+        public static string ORDER_ACCEPTED_ANOTHER_USER {
+            get {
+                return ResourceManager.GetString("ORDER_ACCEPTED_ANOTHER_USER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Order not accepted.
+        /// </summary>
+        public static string ORDER_NOT_ACCEPTED {
+            get {
+                return ResourceManager.GetString("ORDER_NOT_ACCEPTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Order is not available..
+        /// </summary>
+        public static string ORDER_NOT_AVAILABLE {
+            get {
+                return ResourceManager.GetString("ORDER_NOT_AVAILABLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Order Price is invalid..
+        /// </summary>
+        public static string ORDER_PRICE_INVALID {
+            get {
+                return ResourceManager.GetString("ORDER_PRICE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a The password must be longer than 6 characters..
         /// </summary>
         public static string PASSWORD_EMPTY {
             get {
                 return ResourceManager.GetString("PASSWORD_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Return date must be greater than withdrawal date..
+        /// </summary>
+        public static string REAL_END_DATE_INVALID {
+            get {
+                return ResourceManager.GetString("REAL_END_DATE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Os dias do plano de aluguel são obrigatórios..
+        /// </summary>
+        public static string RENTAL_PLAN_DAYS_INVALID {
+            get {
+                return ResourceManager.GetString("RENTAL_PLAN_DAYS_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Plano de aluguel não é permitido..
+        /// </summary>
+        public static string RENTAL_PLAN_DAYS_NOT_ALLOWED {
+            get {
+                return ResourceManager.GetString("RENTAL_PLAN_DAYS_NOT_ALLOWED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Rental plan does not exist..
+        /// </summary>
+        public static string RENTAL_PLAN_NOT_EXIST {
+            get {
+                return ResourceManager.GetString("RENTAL_PLAN_NOT_EXIST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Resource not fund..
+        /// </summary>
+        public static string RESOURCE_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("RESOURCE_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Attempted to perform an unauthorized operation..
+        /// </summary>
+        public static string UNAUTHORIZED_ACCESS {
+            get {
+                return ResourceManager.GetString("UNAUTHORIZED_ACCESS", resourceCulture);
             }
         }
         

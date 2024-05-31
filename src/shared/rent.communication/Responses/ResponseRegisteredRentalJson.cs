@@ -2,5 +2,6 @@
 {
     public class ResponseRegisteredRentalJson
     {
+        public string RentalId { get; set; } = string.Empty;
     }
 }

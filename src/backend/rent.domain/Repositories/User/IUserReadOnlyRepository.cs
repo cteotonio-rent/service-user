@@ -10,5 +10,7 @@
         public Task<bool?> ExistsActiveUserWithIdentifier(Guid userIdentifier);
 
         public Task<Entities.User?> GetByUserIdentifier(Guid userIdentifier);
+
+        public IList<Entities.User?> GetDeliveryPersonAvaiableAndFree();
     }
 }

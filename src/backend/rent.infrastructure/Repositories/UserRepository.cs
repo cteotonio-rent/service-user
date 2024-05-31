@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MongoDB.Bson;
 using rent.domain.Entities;
+using rent.domain.Enuns;
 using rent.domain.Repositories.User;
 using rent.infrastructure.DataAccess;
-using System.ComponentModel;
 
 namespace rent.infrastructure.Repositories
 {
@@ -35,5 +35,10 @@ namespace rent.infrastructure.Repositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Email == email && u.Password == password && u.Active);
         }
+
+        public IList<User?> GetDeliveryPersonAvaiableAndFree() => [.. _dbContext.Users.AsNoTracking().Where(u => u.Active && u.UserType == UserType.DeliveryPerson
+         && _dbContext.Rentals.AsNoTracking().Where(r => r.UserId == u._id && r.Active).Count() > 0
+        && _dbContext.Orders.AsNoTracking().Where(o => o.Active && o.DeliveryPersonId == u._id && o.Status != (int)OrderStatus.Accepted).Count() == 0
+        )];
     }
 }
