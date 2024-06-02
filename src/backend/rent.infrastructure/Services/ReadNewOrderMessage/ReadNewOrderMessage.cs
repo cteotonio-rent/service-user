@@ -31,6 +31,8 @@ namespace rent.infrastructure.Services.ReadNewOrderMessage
         }
         public async Task ReadAndNotifyNewOrder()
         {
+
+            Console.WriteLine($"Reading new order messages from: {_queueUrl}");
             var receiveMessageRequest = new ReceiveMessageRequest
             {
                 QueueUrl = _queueUrl,
@@ -40,47 +42,61 @@ namespace rent.infrastructure.Services.ReadNewOrderMessage
 
             while (true)
             {
-                var receiveMessageResponse = await _sqsClient.ReceiveMessageAsync(receiveMessageRequest);
-
-                if (receiveMessageResponse.Messages.Count == 0)
+                try
                 {
-                    Console.WriteLine("No messages received. Waiting for new messages...");
-                    continue;
-                }
+                    var receiveMessageResponse = await _sqsClient.ReceiveMessageAsync(receiveMessageRequest);
 
-                var message = receiveMessageResponse.Messages[0];
-                var messageBody = message.Body;
-
-                var deliveryPersonList = _userReadOnlyRepository.GetDeliveryPersonAvaiableAndFree();
-
-                if (deliveryPersonList == null) continue;
-
-                var notifyDeliveryPerson = new rent.domain.Entities.DeliveryPersonNotification();
-
-                notifyDeliveryPerson.User.AddRange(
-                    deliveryPersonList.Select(deliveryPerson => new rent.domain.Entities.DeliveryPerson
+                    if (receiveMessageResponse.Messages.Count == 0)
                     {
-                        Id = deliveryPerson!._id,
-                        Name = deliveryPerson.Name,
-                        Email = deliveryPerson.Email
-                    }).ToList()
-                );
+                        Console.WriteLine("No messages received. Waiting for new messages...");
+                        continue;
+                    }
 
-                notifyDeliveryPerson.Message = messageBody;
-                notifyDeliveryPerson.OrderId = ObjectId.Parse(JObject.Parse(messageBody)["OrderId"]!.ToString());
+                    var message = receiveMessageResponse.Messages[0];
+                    var messageBody = message.Body;
 
-                await _notifyDeliveryPersonWriteOnlyRepository.Add(notifyDeliveryPerson);
+                    var deliveryPersonList = _userReadOnlyRepository.GetDeliveryPersonAvaiableAndFree();
 
-                await _unitOfWork.Commit();
+                    if (deliveryPersonList == null) continue;
 
-                var deleteMessageRequest = new DeleteMessageRequest
+                    var notifyDeliveryPerson = new rent.domain.Entities.DeliveryPersonNotification();
+
+                    notifyDeliveryPerson.User.AddRange(
+                        deliveryPersonList.Select(deliveryPerson => new rent.domain.Entities.DeliveryPerson
+                        {
+                            Id = deliveryPerson!._id,
+                            Name = deliveryPerson.Name,
+                            Email = deliveryPerson.Email
+                        }).ToList()
+                    );
+
+                    notifyDeliveryPerson.Message = messageBody;
+                    notifyDeliveryPerson.OrderId = ObjectId.Parse(JObject.Parse(messageBody)["OrderId"]!.ToString());
+
+                    await _notifyDeliveryPersonWriteOnlyRepository.Add(notifyDeliveryPerson);
+
+                    await _unitOfWork.Commit();
+
+                    var deleteMessageRequest = new DeleteMessageRequest
+                    {
+                        QueueUrl = _queueUrl,
+                        ReceiptHandle = message.ReceiptHandle
+                    };
+
+                    await _sqsClient.DeleteMessageAsync(deleteMessageRequest);
+                }
+                catch (Exception ex)
                 {
-                    QueueUrl = _queueUrl,
-                    ReceiptHandle = message.ReceiptHandle
-                };
-
-                await _sqsClient.DeleteMessageAsync(deleteMessageRequest);
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    System.Threading.Thread.Sleep(10000);
+                    Console.WriteLine($"Exiting ReadAndNotifyNewOrder method... {_queueUrl}");
+                }
             }
+
         }
+
     }
 }
