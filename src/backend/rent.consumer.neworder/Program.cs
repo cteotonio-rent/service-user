@@ -10,10 +10,11 @@ var builder = Host.CreateDefaultBuilder(args)
      .ConfigureAppConfiguration((hostingContext, config) =>
      {
          var env = hostingContext.HostingEnvironment;
+         //env.EnvironmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
 
          // Carrega o arquivo 'appsettings.json' e, em seguida, o arquivo 'appsettings.{env.EnvironmentName}.json'
          config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-               .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+               .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true, reloadOnChange: true);
      })
     .ConfigureServices((hostContext, services) =>
     {
