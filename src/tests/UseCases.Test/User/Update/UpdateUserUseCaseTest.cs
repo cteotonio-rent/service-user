@@ -63,7 +63,7 @@ namespace UseCases.Test.User.Update
 
         private static UpdateUserUseCase CreateUseCase(rent.domain.Entities.User user, string? email = null)
         {
-            var loggedUser = LoggedUserBuilder.Build(user);
+            var loggedUser = new LoggedUserBuilder().IsAuthorized(user).Build(user);
             var userUpdateOnlyRepository = new UserUpdateOnlyRepositoryBuilder().GetById(user).Build();
             var userReadOnlyRepositoryBuilder = new UserReadOnlyRepositoryBuilder();
             var unitOfWork = UnitOfWorkBuilder.Build();

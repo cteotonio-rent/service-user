@@ -8,6 +8,7 @@ using rent.domain.Repositories.User;
 using rent.domain.Services.LoggedUser;
 using rent.exceptions.ExceptionsBase;
 using rent.exceptions;
+using rent.domain.Enuns;
 
 namespace rent.application.UseCases.Motorcycle.Register
 {
@@ -36,6 +37,9 @@ namespace rent.application.UseCases.Motorcycle.Register
 
         public async Task<ResponseRegisteredMotorcycleJson> Execute(RequestRegisterMotorcycleJson request)
         {
+            if (!await _loggedUser.IsAuthorized(new List<UserType> { UserType.Admin }))
+                throw new RentUnauthorizedAccessException();
+
             await Validate(request);
 
             var loggedUser = await _loggedUser.User();

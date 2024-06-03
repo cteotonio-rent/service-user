@@ -34,6 +34,9 @@ namespace rent.application.UseCases.Order.AcceptOrder
 
         public async Task Execute(RequestAcceptOrderJson request)
         {
+            if (!await _loggedUser.IsAuthorized(new List<UserType> { UserType.DeliveryPerson }))
+                throw new RentUnauthorizedAccessException();
+
             var user = await _loggedUser.User();
 
             var order = await _orderUpdateOnlyRepository.GetById(ObjectId.Parse(request.OrderId));

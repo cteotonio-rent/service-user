@@ -3,6 +3,7 @@ using FluentValidation.Results;
 using rent.communication.Requests;
 using rent.communication.Responses;
 using rent.domain.Entities;
+using rent.domain.Enuns;
 using rent.domain.Repositories;
 using rent.domain.Repositories.Motorcycle;
 using rent.domain.Repositories.Rental;
@@ -46,6 +47,9 @@ namespace rent.application.UseCases.Rental.Register
 
         public async Task<ResponseRegisteredRentalJson> Execute(RequestRegisterRentalJson request)
         {
+            if (!await _loggedUser.IsAuthorized(new List<UserType> { UserType.DeliveryPerson }))
+                throw new RentUnauthorizedAccessException();
+
             await Validate(request);
 
             var rent = await CalculateRentalValue(request);

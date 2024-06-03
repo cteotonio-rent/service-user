@@ -1,4 +1,5 @@
 ﻿using CommomTestUtilities.Entities;
+using CommomTestUtilities.LoggedUser;
 using CommomTestUtilities.Mapper;
 using CommomTestUtilities.Repositories;
 using FluentAssertions;
@@ -11,9 +12,11 @@ namespace UseCases.Test.Motorcycle.Get
         [Fact]
         public async Task Success()
         {
+            (var user, var _) = UserBuilder.Build();
+            user.UserType = rent.domain.Enuns.UserType.Admin;
             var motorcycle = MotorcycleBuilder.Build();
 
-            var useCase = CreateUseCase(motorcycle);
+            var useCase = CreateUseCase(motorcycle, user);
             var response = await useCase.Execute(motorcycle.LicensePlate);
 
             response.Should().NotBeNull();
@@ -25,17 +28,20 @@ namespace UseCases.Test.Motorcycle.Get
         [Fact]
         public async Task Success_No_Result()
         {
+            (var user, var _) = UserBuilder.Build();
+            user.UserType = rent.domain.Enuns.UserType.Admin;
             var motorcycle = MotorcycleBuilder.Build();
 
-            var useCase = CreateUseCase(motorcycle);
+            var useCase = CreateUseCase(motorcycle, user);
             var response = await useCase.Execute("");
 
             response.Should().BeNull();
         }
 
-        private static GetMotorcycleUseCase CreateUseCase(rent.domain.Entities.Motorcycle motorcycle)
+        private static GetMotorcycleUseCase CreateUseCase(rent.domain.Entities.Motorcycle motorcycle, rent.domain.Entities.User user)
         {
             var mapper = MapperBuilder.Build();
+            var loggedUser = new LoggedUserBuilder().IsAuthorized(user).Build(user);
             var motorcycleReadOnlyRepositoryBuilder = new MotorcycleReadOnlyRepositoryBuilder();
 
             if (motorcycle is not null)
@@ -43,6 +49,7 @@ namespace UseCases.Test.Motorcycle.Get
 
             return new GetMotorcycleUseCase(
                 motorcycleReadOnlyRepositoryBuilder.Build(),
+                loggedUser,
                 mapper
                 );
         }

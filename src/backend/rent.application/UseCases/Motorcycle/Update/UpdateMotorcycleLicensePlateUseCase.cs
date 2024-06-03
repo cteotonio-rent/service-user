@@ -1,6 +1,7 @@
 ﻿using FluentValidation.Results;
 using MongoDB.Bson;
 using rent.communication.Requests;
+using rent.domain.Enuns;
 using rent.domain.Repositories;
 using rent.domain.Repositories.Motorcycle;
 using rent.domain.Services.LoggedUser;
@@ -31,6 +32,9 @@ namespace rent.application.UseCases.Motorcycle.Update
 
         public async Task Execute(string id, RequestUpdateMotorcycleLicensePlateJson request)
         {
+            if (!await _loggedUser.IsAuthorized(new List<UserType> { UserType.Admin }))
+                throw new RentUnauthorizedAccessException();
+
             await Validate(ObjectId.Parse(id), request);
             var loggedUser = await _loggedUser.User();
             var motorcycle = await _motorcycleUpdateOnlyRepository.GetById(ObjectId.Parse(id));

@@ -20,11 +20,12 @@ namespace UseCases.Test.Motorcycle.Update
         public async Task Sucess()
         {
             (var user, _) = UserBuilder.Build();
+            user.UserType = rent.domain.Enuns.UserType.Admin;
             var motorcycle = MotorcycleBuilder.Build();
             var request = RequestUpdateMotorcycleLicensePlateJsonBuilder.Build();
 
             var useCase = CreateUseCase(user, motorcycle);
-            Func<Task> act = async () => await useCase.Execute(motorcycle._id, request);
+            Func<Task> act = async () => await useCase.Execute(motorcycle._id.ToString(), request);
 
             await act.Should().NotThrowAsync();
 
@@ -35,12 +36,13 @@ namespace UseCases.Test.Motorcycle.Update
         public async Task Error_License_Plate_Already_Registered()
         {
             (var user, _) = UserBuilder.Build();
+            user.UserType = rent.domain.Enuns.UserType.Admin;
             var request = RequestUpdateMotorcycleLicensePlateJsonBuilder.Build();
             var motorcycle = MotorcycleBuilder.Build();
             request.LicensePlate = motorcycle.LicensePlate;
             var useCase = CreateUseCase(user, motorcycle, request.LicensePlate);
 
-            Func<Task> act = async () => await useCase.Execute(MongoDB.Bson.ObjectId.GenerateNewId(), request);
+            Func<Task> act = async () => await useCase.Execute(MongoDB.Bson.ObjectId.GenerateNewId().ToString(), request);
 
             (await act.Should().ThrowAsync<ErrorOnValidationException>())
                 .Where(e => e.ErrorMessages.Count == 1 && e.ErrorMessages.Contains(ResourceMessagesException.LICENSE_PLATE_ALREADY_REGISTERED));
@@ -52,7 +54,7 @@ namespace UseCases.Test.Motorcycle.Update
             rent.domain.Entities.Motorcycle motorcycle,
             string? licencePlate = null)
         {
-            var loggedUser = LoggedUserBuilder.Build(user);
+            var loggedUser = new LoggedUserBuilder().IsAuthorized(user).Build(user);
             var mapper = MapperBuilder.Build();
             var motorcycleUpdateOnlyRepository = new MotorcycleUpdateOnlyRepositoryBuilder().GetById(motorcycle).Build();
             var motorcycleReadOnlyRepositoryBuilder = new MotorcycleReadOnlyRepositoryBuilder();

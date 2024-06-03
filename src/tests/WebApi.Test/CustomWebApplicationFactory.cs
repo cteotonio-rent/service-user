@@ -81,7 +81,9 @@ namespace WebApi.Test
         private void StartDatabase(UserDbContext dbContext)
         {
             (_user, _password) = UserBuilder.Build();
+            _user.UserType = rent.domain.Enuns.UserType.Admin;
             dbContext.Users.Add(_user);
+            dbContext.SaveChanges();
 
             _motorcycle = MotorcycleBuilder.Build();
             _motorcycle.UserUniqueIdentifier = _user.UserUniqueIdentifier;

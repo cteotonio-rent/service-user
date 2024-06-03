@@ -16,6 +16,7 @@ namespace UseCases.Test.Motorcycle.Register
         public async Task Sucess()
         {
             (var user, _) = UserBuilder.Build();
+            user.UserType = rent.domain.Enuns.UserType.Admin;
             var request = RequestRegisterMotorcycleJsonBuilder.Build();
 
             var useCase = CreateUseCase(user);
@@ -29,6 +30,7 @@ namespace UseCases.Test.Motorcycle.Register
         public async Task Error_License_Plate_Already_Registered()
         {
             (var user, _) = UserBuilder.Build();
+            user.UserType = rent.domain.Enuns.UserType.Admin;
             var request = RequestRegisterMotorcycleJsonBuilder.Build();
             var usecase = CreateUseCase(user, request.LicensePlate);
 
@@ -42,6 +44,7 @@ namespace UseCases.Test.Motorcycle.Register
         public async Task Error_Model_Empty()
         {
             (var user, _) = UserBuilder.Build();
+            user.UserType = rent.domain.Enuns.UserType.Admin;
             var request = RequestRegisterMotorcycleJsonBuilder.Build();
             request.Model = string.Empty;
             var usecase = CreateUseCase(user);
@@ -54,7 +57,7 @@ namespace UseCases.Test.Motorcycle.Register
         }
         private static RegisterMotorcycleUseCase CreateUseCase(rent.domain.Entities.User user, string? licencePlate = null)
         {
-            var loggedUser = LoggedUserBuilder.Build(user);
+            var loggedUser = new LoggedUserBuilder().IsAuthorized(user).Build(user);
             var mapper = MapperBuilder.Build();
             var motorcycleWriteOnlyRepository = MotorcycleWriteOnlyRepositoryBuilder.Build();
             var motorcycleReadOnlyRepositoryBuilder = new MotorcycleReadOnlyRepositoryBuilder();

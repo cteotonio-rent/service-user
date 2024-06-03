@@ -31,6 +31,9 @@ namespace rent.application.UseCases.Order.Register
 
         public async Task<ResponseRegisteredOrderJson> Execute(RequestRegisterOrderJson request)
         {
+            if (!await _loggedUser.IsAuthorized(new List<UserType> { UserType.Admin }))
+                throw new RentUnauthorizedAccessException();
+
             var user = await _loggedUser.User(); 
             await Validate(request);
             var order = new rent.domain.Entities.Order();

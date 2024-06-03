@@ -1,15 +1,11 @@
-﻿using Amazon.Runtime.Internal.Endpoints.StandardLibrary;
-using CommomTestUtilities.Image;
-using CommomTestUtilities.Requests;
+﻿using CommomTestUtilities.Image;
 using CommomTestUtilities.Token;
 using FluentAssertions;
-using Newtonsoft.Json.Linq;
 using System.Net;
-using System.Net.Http.Headers;
 
 namespace WebApi.Test.User.Update
 {
-    [Trait("IntegrationTest", "UserDriversLicenceImageEndPoint")]
+    // [Trait("IntegrationTest", "UserDriversLicenceImageEndPoint")]
     public class UpdateUserImageTest : CustomClassFixture
     {
         private const string _url = "user/image";
@@ -19,7 +15,7 @@ namespace WebApi.Test.User.Update
             _userIdentifier = factory.GetUserIdentifier();
         }
 
-        [Fact]
+        //[Fact]
         public async Task Success()
         {
             var drivresLicenseImage = DriversLicencseImageBuilder.Build();

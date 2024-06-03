@@ -26,7 +26,7 @@ namespace UseCases.Test.User.Profile
         private static GetUserProfileUseCase CreateUseCase(rent.domain.Entities.User user)
         {
             var mapper = MapperBuilder.Build();
-            var loggedUser = LoggedUserBuilder.Build(user);
+            var loggedUser = new LoggedUserBuilder().IsAuthorized(user).Build(user);
 
             return new GetUserProfileUseCase(loggedUser, mapper);
         }

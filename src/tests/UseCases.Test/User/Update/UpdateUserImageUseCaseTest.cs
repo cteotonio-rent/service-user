@@ -2,6 +2,7 @@
 using CommomTestUtilities.Image;
 using CommomTestUtilities.LoggedUser;
 using CommomTestUtilities.Repositories;
+using CommomTestUtilities.UploadImage;
 using FluentAssertions;
 using rent.application.UseCases.User.Update;
 using rent.exceptions;
@@ -41,14 +42,15 @@ namespace UseCases.Test.User.Update
 
         private static UpdateUserImageUseCase CreateUseCase(rent.domain.Entities.User user)
         {
-            var loggedUser = LoggedUserBuilder.Build(user);
+            var loggedUser = new LoggedUserBuilder().IsAuthorized(user).Build(user);
             var userUpdateOnlyRepository = new UserUpdateOnlyRepositoryBuilder().GetById(user).Build();
+            var uploadImage = UploadImageBuilder.Build();
             var unitOfWork = UnitOfWorkBuilder.Build();
 
 
             return new UpdateUserImageUseCase(loggedUser,
                 userUpdateOnlyRepository,
-                unitOfWork);
+                unitOfWork, uploadImage);
         }
     }
 }
