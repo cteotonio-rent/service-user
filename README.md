@@ -18,3 +18,51 @@ Repositório com arquivos do projeto de Serviço e Consumidor de Fila
 
 #### Exemplo de resposta:
 { "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c" }
+
+
+## API Endpoints
+
+### `POST /order`
+
+Registra um novo pedido.
+
+| Propriedade | Descrição |
+| ----------- | ----------- |
+| Descrição | Este endpoint é usado para registrar um novo pedido. |
+| Parâmetros | Um objeto JSON que representa o pedido a ser registrado. |
+| Resposta | Retorna um objeto JSON que representa o pedido registrado. |
+| Erros | Se ocorrer um erro durante o registro do pedido, o servidor retornará um código de status HTTP 400 e uma mensagem de erro no formato JSON. |
+
+### `GET /order/{orderid}/notifieddeliveryperson`
+
+Obtém a pessoa de entrega notificada para um pedido específico.
+
+| Propriedade | Descrição |
+| ----------- | ----------- |
+| Descrição | Este endpoint é usado para obter a pessoa de entrega notificada para um pedido específico. |
+| Parâmetros | O ID do pedido. |
+| Resposta | Retorna um objeto JSON que representa a pessoa de entrega notificada. Se não houver pessoa de entrega notificada, retorna um código de status HTTP 204. |
+| Erros | Nenhum erro específico documentado para este endpoint. |
+
+### `POST /order/accept`
+
+Aceita um pedido.
+
+| Propriedade | Descrição |
+| ----------- | ----------- |
+| Descrição | Este endpoint é usado para aceitar um pedido. |
+| Parâmetros | Um objeto JSON que representa o pedido a ser aceito. |
+| Resposta | Não retorna nenhum conteúdo. Retorna um código de status HTTP 204. |
+| Erros | Se ocorrer um erro durante a aceitação do pedido, o servidor retornará um código de status HTTP 400 e uma mensagem de erro no formato JSON. Se o pedido não for encontrado, retorna um código de status HTTP 404. |
+
+### `POST /order/deliver`
+
+Entrega um pedido.
+
+| Propriedade | Descrição |
+| ----------- | ----------- |
+| Descrição | Este endpoint é usado para entregar um pedido. |
+| Parâmetros | Um objeto JSON que representa o pedido a ser entregue. |
+| Resposta | Não retorna nenhum conteúdo. Retorna um código de status HTTP 204. |
+| Erros | Se ocorrer um erro durante a entrega do pedido, o servidor retornará um código de status HTTP 400 e uma mensagem de erro no formato JSON. Se o pedido não for encontrado, retorna um código de status HTTP 404. |
+
